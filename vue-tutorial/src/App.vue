@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
-// 現在日時
-let now = new Date()
-let nowString = now.toLocaleTimeString()
-let timeString = nowString
-const refTimeString = ref(nowString)
-
-function changeTime() {
-  let newNow = new Date()
-  let newNowString = newNow.toLocaleTimeString()
-  timeString = newNowString
-  refTimeString.value = newNowString
+const radiusInit = Math.round(Math.random() * 10)
+const radius = ref(radiusInit)
+const PI = 3.14
+// 外部から与えられた計算結果をリアクティブデータにする方法が算出プロパティ
+// 算出プロパティは読み取り専用であることに注意する
+const area = computed((): number =>{
+  return radius.value * radius.value * PI
+})
+const changeRadius = () => {
+  const newRadius = Math.round(Math.random() * 10)
+  radius.value = newRadius
 }
-setInterval(changeTime, 1000)
+setInterval(changeRadius, 1000)
 </script>
 
 <template>
-  <h2>現在時刻： {{ timeString }}</h2>
-  <h2>現在時刻(ref)： {{ refTimeString }}</h2>
+円の半径を{{ radius }}、円周率を{{ PI }}とするとき円の面積は{{ area }}
 </template>
