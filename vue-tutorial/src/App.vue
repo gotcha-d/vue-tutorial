@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 const url = ref('https://vuejs.org/')
+const isSendButtonDisabled = ref(true)
 </script>
 
 <template>
@@ -14,5 +15,8 @@ const url = ref('https://vuejs.org/')
   </p>
   <p>
     <a v-bind:href="url + 'guide/introduction.html'" target="_blank">Vue.jsのガイドページ</a>
+  </p>
+  <p>
+    <button v-bind:disabled="isSendButtonDisabled">送信</button>
   </p>
 </template>
