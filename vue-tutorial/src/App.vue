@@ -20,6 +20,13 @@ const pBgColor = ref('white')
 const onParagraphClick =(color: string): void => {
   pBgColor.value = color
 }
+
+const pMsg = ref('イベント前(ここをクリック)')
+const pBgColorEvent = ref('white')
+const onPClickWithEvent = (bgColor: string, event: MouseEvent): void => {
+  pBgColorEvent.value = bgColor
+  pMsg.value = event.timeStamp.toString()
+}
 </script>
 
 <template>
@@ -39,6 +46,12 @@ const onParagraphClick =(color: string): void => {
     <!-- 任意の引数を渡すときはテンプレート上のイベントメソッドに引数が必要 -->
     <p  v-on:click="onParagraphClick('pink')" v-bind:style="{backgroundColor: pBgColor}">
       ここをクリックすると色が変わります
+    </p>
+  </section>
+  <section>
+    <!-- イベントオブジェクトとその他の引数を併用したいときは$eventを明記する -->
+    <p v-on:click="onPClickWithEvent('green', $event)" v-bind:style="{backgroundColor: pBgColorEvent}">
+      {{ pMsg }}
     </p>
   </section>
 </template>
