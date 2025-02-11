@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import { reactive, computed } from 'vue';
+import { ref } from 'vue'
 
-const radiusInit = Math.round(Math.random() * 10)
-const data = reactive({
-  PI: 3.14,
-  radius: radiusInit
-})
-const area = computed(() => {
-  return data.radius * data.radius * data.PI
-})
-const changeRadius = (): Number => {
-  data.radius = Math.round(Math.random() * 10)
-}
-setInterval(changeRadius, 1000)
+const url = ref('https://vuejs.org/')
 </script>
 
 <template>
-  <h2>半径{{ data.radius }}の円の面積は, 円周率が{{ data.PI }}のとき{{ area }}</h2>
+  <!-- v-bindはマスタッシュ構文を使えないタグの属性部分に対してテンプレート変数を利用するための構文 -->
+  <p>
+    <a v-bind:href="url" target="_blank">Vue.jsのサイト</a>
+  </p>
+  <p>
+    <a :href="url" target="_blank">Vue.jsのサイト(省略形)</a>
+  </p>
+  <p>
+    <a v-bind:href="url + 'guide/introduction.html'" target="_blank">Vue.jsのガイドページ</a>
+  </p>
 </template>
