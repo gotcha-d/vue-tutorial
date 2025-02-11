@@ -3,6 +3,8 @@ import { ref } from 'vue'
 
 const url = ref('https://vuejs.org/')
 const isSendButtonDisabled = ref(true)
+const widthOrHight = ref("height")
+const widthOrHightValue = ref(100)
 </script>
 
 <template>
@@ -17,6 +19,11 @@ const isSendButtonDisabled = ref(true)
     <a v-bind:href="url + 'guide/introduction.html'" target="_blank">Vue.jsのガイドページ</a>
   </p>
   <p>
+    <!-- 属性値がない属性の場合はboolean型を使用する -->
     <button v-bind:disabled="isSendButtonDisabled">送信</button>
+  </p>
+  <p>
+    <!-- v-bindの引数にテンプレート変数を与えると、指定した属性に対して値をバインドできる -->
+    <img src="./assets/logo.svg" alt="" v-bind:[widthOrHight]="widthOrHightValue">
   </p>
 </template>
