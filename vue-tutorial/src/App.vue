@@ -30,6 +30,30 @@ const textSize = computed(()=> {
   const size = Math.round(Math.random() * 10)
   return `${size}pt`
 })
+const isTextColorRed = ref(true)
+const isBgColorBlue = ref(false)
+const styles = {
+  textColorRed: true,
+  bgColorBlue: true
+}
+const computedStyles = computed(() => {
+  const randomText = Math.round(Math.random())
+  let textColorFlg = true
+  if (randomText == 0) {
+    textColorFlg = false
+  }
+
+  const randomBg = Math.round(Math.random())
+  let bgColorFlg = true
+  if (randomBg == 0) {
+    bgColorFlg = false
+  }
+
+  return {
+    textColorRed: textColorFlg,
+    bgColorBlue: bgColorFlg
+  }
+})
 </script>
 
 <template>
@@ -78,4 +102,44 @@ const textSize = computed(()=> {
       {{ msg }}
     </p>
   </div>
+
+  <div style="border: 5px green solid">
+    <p v-bind:class="{textColorRed: true, bgColorBlue: true}">
+      {{ msg }}
+    </p>
+    <p v-bind:class="{textColorRed: isTextColorRed, bgColorBlue: isBgColorBlue}">
+      {{ msg }}
+    </p>
+    <!-- v-bind:styleのように自動でキャメルからケバブに変換されないのでこいつはピンクにならない -->
+    <p v-bind:class="{textColorPink: true}">
+      {{ msg }}
+    </p>
+    <p v-bind:class="{'text-color-pink': true}">
+      {{ msg }}
+    </p>
+    <p class="textSize24" v-bind:class="{textColorRed: isTextColorRed, bgColorBlue: isBgColorBlue}">
+      {{ msg }}
+    </p>
+    <p class="textSize24" v-bind:class="styles">
+      {{ msg }}
+    </p>
+    <p class="textSize24" v-bind:class="computedStyles">
+      {{ msg }}
+    </p>
+  </div>
 </template>
+
+<style>
+.textColorRed {
+  color: red;
+}
+.text-color-pink {
+  color: pink;
+}
+.bgColorBlue {
+  background-color: blue;
+}
+.textSize24 {
+  font-size: 24px;
+}
+</style>
