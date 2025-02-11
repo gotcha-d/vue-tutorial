@@ -36,7 +36,7 @@ const styles = {
   textColorRed: true,
   bgColorBlue: true
 }
-const computedStyles = computed(() => {
+const computedStyles = computed(():{textColorRed: boolean; bgColorBlue: boolean} => {
   const randomText = Math.round(Math.random())
   let textColorFlg = true
   if (randomText == 0) {
