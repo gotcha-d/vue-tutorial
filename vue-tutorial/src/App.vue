@@ -16,6 +16,10 @@ const onImageMouseMove = (event: MouseEvent): void => {
   mousePointerX.value = event.offsetX
   mousePointerY.value = event.offsetY
 }
+const pBgColor = ref('white')
+const onParagraphClick =(color: string): void => {
+  pBgColor.value = color
+}
 </script>
 
 <template>
@@ -27,7 +31,14 @@ const onImageMouseMove = (event: MouseEvent): void => {
     <p>クリックの結果： {{ randValue }}</p>
   </section>
   <section>
+    <!-- イベントオブジェクトだけを渡すときはテンプレート上のイベントメソッドに引数は不要 -->
     <img src="./assets/logo.svg" alt="vueのロゴ" width="200" v-on:mousemove="onImageMouseMove">
     <p>ポインタの位置： x={{ mousePointerX }},y={{ mousePointerY }}</p>
+  </section>
+  <section>
+    <!-- 任意の引数を渡すときはテンプレート上のイベントメソッドに引数が必要 -->
+    <p  v-on:click="onParagraphClick('pink')" v-bind:style="{backgroundColor: pBgColor}">
+      ここをクリックすると色が変わります
+    </p>
   </section>
 </template>
