@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const url = ref('https://vuejs.org/')
 const isSendButtonDisabled = ref(true)
@@ -10,6 +10,25 @@ const imgAttributes = ref({
   alt: "vueのロゴ",
   width: 75,
   height: 100
+})
+const msg = ref('こんにちは、世界')
+const msgTextRed = ref('red')
+const msgTextColor = ref('white')
+const msgBgColor = ref('black')
+const msgStyles = ref({
+  color: "white",
+  backgroundColor: "black"
+})
+const msgStyles2 = ref({
+  fontSize: "24pt"
+})
+const msgStyles3 = ref({
+  color: "pink",
+  fontSize: "24pt"
+})
+const textSize = computed(()=> {
+  const size = Math.round(Math.random() * 10)
+  return `${size}pt`
 })
 </script>
 
@@ -38,4 +57,25 @@ const imgAttributes = ref({
     <img v-bind="imgAttributes" title="rogoです">
     <img v-bind="imgAttributes" height="100" width="100" title="rogoです">
   </p>
+
+  <div style="border: 5px red solid">
+    <p v-bind:style="{color: msgTextRed}">{{ msg }}</p>
+    <p v-bind:style="{color: 'pink'}">{{ msg }}</p>
+    <p v-bind:style="{fontSize: textSize}">{{ msg }}</p>
+    <p v-bind:style="{color: msgTextColor, backgroundColor: msgBgColor}">
+      {{ msg }}
+    </p>
+    <p v-bind:style="{color: msgTextColor, 'background-color': msgBgColor}">
+      {{ msg }}
+    </p>
+    <p v-bind:style="msgStyles">
+      {{ msg }}
+    </p>
+    <p v-bind:style="[msgStyles, msgStyles2]">
+      {{ msg }}
+    </p>
+    <p v-bind:style="[msgStyles, msgStyles3]">
+      {{ msg }}
+    </p>
+  </div>
 </template>
