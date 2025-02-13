@@ -1,15 +1,22 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// 双方向
+// vモデル
 const inputNameModel = ref("双方向")
 
-// 方方向
+// 片方向
 const inputNameBind = ref("しんちゃん")
 const inputNameOn = ref("ななし")
 const onInputName = (event: Event) => {
   const element = event?.target as HTMLInputElement
   inputNameOn.value = element.value
+}
+
+// 双方向
+const inputName2Way = ref('双方向')
+const onInputName2Way = (event: Event) => {
+  const element = event.target as HTMLInputElement
+  inputName2Way.value = element.value
 }
 </script>
 
@@ -26,4 +33,9 @@ const onInputName = (event: Event) => {
     <p>{{ inputNameOn }}</p>
   </div>
 
+  <div>
+    <h2>双方向のデータバインディング</h2>
+    <input type="text" v-bind:value="inputName2Way" v-on:input="onInputName2Way">
+    <p>{{ inputName2Way }}</p>
+  </div>
 </template>
