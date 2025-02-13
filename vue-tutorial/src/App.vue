@@ -1,41 +1,39 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue"
 
-// vモデル
-const inputNameModel = ref("双方向")
-
-// 片方向
-const inputNameBind = ref("しんちゃん")
-const inputNameOn = ref("ななし")
-const onInputName = (event: Event) => {
-  const element = event?.target as HTMLInputElement
-  inputNameOn.value = element.value
-}
-
-// 双方向
-const inputName2Way = ref('双方向')
-const onInputName2Way = (event: Event) => {
-  const element = event.target as HTMLInputElement
-  inputName2Way.value = element.value
-}
+const inputTextArea = ref("テキストエリアへの入力\n改行も入れてみる")
+const memberType = ref(1)
+const memberTypeSelect = ref(1)
+const isAgreed = ref(false)
+const isAgreed01 = ref(0)
+const selectedOS = ref([])
 </script>
 
 <template>
-  <div>
-    <h2>v-modelを使用</h2>
-    <input type="text" v-model="inputNameModel">
-    <p>{{ inputNameModel }}</p>
-  </div>
-  <div>
-    <h2>片方向のデータバインディング</h2>
-    <input type="text" v-bind:value="inputNameBind">
-    <input type="text" v-on:input="onInputName">
-    <p>{{ inputNameOn }}</p>
-  </div>
-
-  <div>
-    <h2>双方向のデータバインディング</h2>
-    <input type="text" v-bind:value="inputName2Way" v-on:input="onInputName2Way">
-    <p>{{ inputName2Way }}</p>
-  </div>
+  <textarea name="" v-model="inputTextArea"></textarea>
+  <hr>
+  <label><input type="radio" value="1" v-model="memberType">通常会員</label>
+  <label><input type="radio" value="2" v-model="memberType">特別会員</label>
+  <label><input type="radio" value="3" v-model="memberType">優待会員</label>
+  <p>選択されたラジオボタン: {{ memberType }}</p>
+  <hr>
+  <select name="" v-model="memberTypeSelect">
+    <option value="1">通常会員</option>
+    <option value="2">特別会員</option>
+    <option value="3">優待会員</option>
+  </select>
+  <p>選択されたリスト：{{ memberTypeSelect }}</p>
+  <hr>
+  <label for="agree">同意する</label><input id="agree" type="checkbox" v-model="isAgreed">
+  <p>同意の結果: {{ isAgreed }}</p>
+  <hr>
+  <label for="agree">同意する</label><input id="agree" type="checkbox" v-model="isAgreed01" true-value="1" false-value="0">
+  <p>同意の結果: {{ isAgreed01 }}</p>
+  <hr>
+  <label><input type="checkbox" v-model="selectedOS" value="1">MacOS</label>
+  <label><input type="checkbox" v-model="selectedOS" value="2">Windows</label>
+  <label><input type="checkbox" v-model="selectedOS" value="3">Linux</label>
+  <label><input type="checkbox" v-model="selectedOS" value="4">iOS</label>
+  <label><input type="checkbox" v-model="selectedOS" value="5">Android</label>
+  <p>選択されたOS: {{ selectedOS }}</p>
 </template>
