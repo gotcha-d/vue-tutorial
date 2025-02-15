@@ -7,6 +7,8 @@ const memberTypeSelect = ref(1)
 const isAgreed = ref(false)
 const isAgreed01 = ref(0)
 const selectedOS = ref([])
+
+const processType = ref(1)
 </script>
 
 <template>
@@ -36,4 +38,9 @@ const selectedOS = ref([])
   <label><input type="checkbox" v-model="selectedOS" value="4">iOS</label>
   <label><input type="checkbox" v-model="selectedOS" value="5">Android</label>
   <p>選択されたOS: {{ selectedOS }}</p>
+  <hr>
+  <label for=""><input type="radio" value="1" v-model="processType">新規</label>
+  <label for=""><input type="radio" value="2" v-model="processType">更新</label>
+  <label for=""><input type="radio" value="3" v-model="processType">削除</label>
+  <p>選択された種別{{ processType }}</p>
 </template>
