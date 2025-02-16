@@ -10,6 +10,10 @@ const showOrNot = computed((): boolean => {
   }
   return showOrNot
 })
+
+const randomNumber = computed((): number => {
+  return Math.round(Math.random() * 100)
+})
 </script>
 <template>
   <p v-if="number >= 50">
@@ -23,4 +27,18 @@ const showOrNot = computed((): boolean => {
   <p v-if="showOrNot">
     条件に合致したので表示3
   </p>
+  <hr>
+  <!-- if, else-if, elseは連続して配置すること -->
+  <p v-if="randomNumber >= 80">優です</p>
+  <p v-else-if="randomNumber >= 70">良です</p>
+  <p v-else-if="randomNumber >= 60">可です</p>
+  <!-- v-elseの場合は属性値としての条件指定は不要 -->
+  <p v-else>不可です</p>
+  <hr>
+  <!-- 条件分岐タグは連続して配置する必要があり、次のような記述はできない -->
+  <!-- 
+  <span v-if="randomNumber >= 80">優です</span>
+  <span class="colorRed">すばらしい</span>
+  <span v-else-if="randomNumber >= 70">優です</span> 
+  -->
 </template>
