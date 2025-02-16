@@ -41,4 +41,18 @@ const randomNumber = computed((): number => {
   <span class="colorRed">すばらしい</span>
   <span v-else-if="randomNumber >= 70">優です</span> 
   -->
-</template>
+  <hr>
+  <!-- 複数の子要素の表示を切り替えるには、無駄にdivで囲う必要がある。cssに影響が出る可能性がある -->
+  <div v-if="true">
+    <img src="./assets/logo.svg" alt="vueのロゴ" height="100px">
+    <p>ロゴを表示</p>
+  </div>
+  <!-- templateタグで回避する -->
+  <hr>
+  <p>点数は{{ randomNumber }}点
+    <template v-if="randomNumber >= 80">
+      で優です
+      <span style="color: red;">素晴らしい！</span>
+    </template>
+  </p>
+  </template>
