@@ -55,4 +55,17 @@ const randomNumber = computed((): number => {
       <span style="color: red;">素晴らしい！</span>
     </template>
   </p>
-  </template>
+  <hr>
+  <section>
+    v-ifを使用
+    <p v-if="showOrNot">
+      条件に合致したので表示
+    </p>
+  </section>
+  <section>
+    v-showを使用
+    <p v-show="showOrNot">
+      条件に合致したので表示
+    </p>
+  </section>
+</template>
