@@ -33,6 +33,19 @@ const whiteLadyInit: {
   recipe: "ジン30ml+コワントロー15ml+レモン果汁15ml"
 }
 const whiteLady = ref(whiteLadyInit)
+
+const cocktailDetailInit: Cocktail[] = [
+  {id: 2345, name: "ホワイトレディ", price: 1200},
+  {id: 4412, name: "ブルーハワイ", price: 1500},
+  {id: 6792, name: "ニューヨーク", price: 1100},
+  {id: 8429, name: "マティーニ", price: 1500},
+]
+const cocktailDetail = ref(cocktailDetailInit)
+interface Cocktail {
+  id: number;
+  name: string;
+  price: number;
+}
 </script>
 
 <template>
@@ -44,6 +57,7 @@ const whiteLady = ref(whiteLadyInit)
       {{ cocktailName }}
     </li>
   </ul>
+  <hr>
   <ul>
     <li
       v-for="(cocktailName, index) in cocktailList"
@@ -51,6 +65,7 @@ const whiteLady = ref(whiteLadyInit)
       {{ cocktailName }} (インデックス{{ index }})
     </li>
   </ul>
+  <hr>
   <ul>
     <li
       v-for="(cocktailName, id) in cocktailDic"
@@ -59,6 +74,7 @@ const whiteLady = ref(whiteLadyInit)
       IDが{{ id }}のカクテルは{{ cocktailName }}
     </li>
   </ul>
+  <hr>
   <ul>
     <li
       v-for="(cocktailName, id, index) in cocktailDic"
@@ -67,6 +83,7 @@ const whiteLady = ref(whiteLadyInit)
       {{ index + 1 }}: IDが{{ id }}のカクテルは{{ cocktailName }}
     </li>
   </ul>
+  <hr>
   <ul>
     <li
       v-for="[id, cocktailName] in cocktailMap"
@@ -76,6 +93,7 @@ const whiteLady = ref(whiteLadyInit)
       IDが{{ id }}のカクテルは{{ cocktailName }}
     </li>
   </ul>
+  <hr>
   <dl>
     <template
       v-for="(value, key) in whiteLady"
@@ -84,4 +102,21 @@ const whiteLady = ref(whiteLadyInit)
       <dt>{{ key }}</dt><dd>{{ value }}</dd>
     </template>
   </dl>
+  <hr>
+  <ul>
+    <li
+      v-for="cocktailItem in cocktailDetail"
+      v-bind:key="cocktailItem.id"
+      >
+      <dl>
+        <template
+          v-for="(value, key) in cocktailItem"
+          v-bind:key="key"
+          >
+          <dt>{{ key }}</dt>
+          <dd>{{ value }}</dd>
+        </template>
+      </dl>
+    </li>
+  </ul>
 </template>
