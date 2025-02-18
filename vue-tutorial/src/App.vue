@@ -14,6 +14,12 @@ const cocktailObjInit: {[key: number]: string} = {
   6792: "ニューヨーク",
 }
 const cocktailObj = ref(cocktailObjInit)
+
+const cocktailMapInit = new Map<number, string>()
+cocktailMapInit.set(2345, "ホワイトレディ")
+cocktailMapInit.set(4472, "ブルーハワイ")
+cocktailMapInit.set(6792, "ニューヨーク")
+const cocktailMap = ref(cocktailMapInit)
 </script>
 
 <template>
@@ -46,6 +52,15 @@ const cocktailObj = ref(cocktailObjInit)
       v-bind:key="'cocktailListWithIdx' + id"
       >
       {{ index + 1 }}: IDが{{ id }}のカクテルは{{ cocktailName }}
+    </li>
+  </ul>
+  <ul>
+    <li
+      v-for="[id, cocktailName] in cocktailMap"
+      v-bind:key="id"
+      >
+      <!-- Mapのループは[]ブラケットで囲う -->
+      IDが{{ id }}のカクテルは{{ cocktailName }}
     </li>
   </ul>
 </template>
