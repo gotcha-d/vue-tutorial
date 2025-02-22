@@ -134,4 +134,13 @@ const cocktailMapObj = ref(cocktailMapObjInit)
       {{ cocktailItem.name }}の値段は{{ cocktailItem.price }}
     </li>
   </ul>
+  <ul>
+    <!-- カウンタ変数 を使った場合の開始値は1固定 -->
+    <li
+      v-for="r in 5"
+      v-bind:key="r"
+      >
+      半径{{ r }}の円の円周は{{ 2* r * 3.14 }}
+    </li>
+  </ul>
 </template>
