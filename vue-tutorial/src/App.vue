@@ -3,9 +3,14 @@ import { ref, computed, watch } from "vue"
 
 const cocktailListNo = ref(1)
 const priceMsg = ref("")
-watch(cocktailListNo, (): void => {
-  priceMsg.value = getCocktailInfo(cocktailListNo.value)
-}, {immediate: true})
+// watch関数には、変更前の値と変更後の値を引数に取ることができる特徴を持つ
+watch(cocktailListNo, (newValue: number, oldValue: number): void => {
+  let msg = "前のカクテル: "
+  msg += getCocktailInfo(oldValue)
+  msg += "現在のカクテル: "
+  msg += getCocktailInfo(newValue)
+  priceMsg.value = msg
+})
 
 interface Cocktail {
   id: number;
