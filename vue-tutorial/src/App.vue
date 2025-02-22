@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, ref, computed, reactive } from "vue"
+import { defineComponent, ref, computed, reactive, toRefs } from "vue"
 
 // Vueバージョン3.2より前の書き方。defineComponentによってコンポーネントの処理内容を記載する
 export default defineComponent({
@@ -40,7 +40,7 @@ export default defineComponent({
     return {
       cocktailNo,
       priceMsg,
-      data,
+      ...toRefs(data),
       area
     }
 
@@ -58,5 +58,5 @@ interface Cocktail {
   <p>現在のカクテル番号： {{ cocktailNo }}</p>
   <p>{{ priceMsg }}</p>
   <hr>
-  <p>半径{{ data.radius }}の面積は{{ area }}</p>
+  <p>半径{{ radius }}の面積は{{ area }}</p>
 </template>
