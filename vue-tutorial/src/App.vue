@@ -17,6 +17,18 @@ interface Cocktail {
 const cocktail1500 = computed((): Cocktail[] => {
   return cocktailDetailList.value.filter((item) => item.price >= 1500)
 })
+
+const cocktailListInit: string[] = ["ホワイトレディ", "ブルーハワイ", "ニューヨーク"]
+const cocktailList = ref(cocktailListInit)
+const changeCocktailList = (): void => {
+  cocktailList.value = ["バラライカ", "XYZ", "マンハッタン"]
+}
+const addCocktailList = (): void => {
+  cocktailList.value.push("ブールームーン")
+}
+const popCocktailList = (): void => {
+  cocktailList.value.pop()
+}
 </script>
 
 <template>
@@ -41,5 +53,19 @@ const cocktail1500 = computed((): Cocktail[] => {
         ID: {{ cocktailItem.id }}のカクテルは{{ cocktailItem.name }}({{ cocktailItem.price }}円)
       </li>
     </ul>
+  </section>
+  <hr>
+  <section>
+    <ul>
+      <li
+        v-for="(cocktailName, index) in cocktailList"
+        :key="cocktailName"
+        >
+        {{ index  +  1 }}のカクテルは{{ cocktailName }}
+      </li>
+    </ul>
+    <button v-on:click="changeCocktailList">カクテル変更</button>
+    <button v-on:click="addCocktailList">カクテル追加</button>
+    <button v-on:click="popCocktailList">カクテル削除</button>
   </section>
 </template>
