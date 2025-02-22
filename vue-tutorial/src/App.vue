@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue"
+import { defineComponent, ref, computed, reactive } from "vue"
 
 // Vueバージョン3.2より前の書き方。defineComponentによってコンポーネントの処理内容を記載する
 export default defineComponent({
@@ -22,14 +22,26 @@ export default defineComponent({
       return msg
     })
 
+    const data = reactive({
+      PI: 3.14,
+      radius: Math.round(Math.random() * 10)
+    })
+    const area = computed(() => {
+      return data.radius * data.radius * data.PI
+    })
     setInterval(() => {
       cocktailNo.value = Math.round(Math.random() * 3) + 1
+
+      data.radius = Math.round(Math.random() * 10)
+
     }, 1000)
-  
+    
     // 戻り値としてリアクティブ変数をリターンして、templateブロックで利用できるようになる
     return {
       cocktailNo,
-      priceMsg
+      priceMsg,
+      data,
+      area
     }
 
   }
@@ -45,4 +57,6 @@ interface Cocktail {
 <template>
   <p>現在のカクテル番号： {{ cocktailNo }}</p>
   <p>{{ priceMsg }}</p>
+  <hr>
+  <p>半径{{ data.radius }}の面積は{{ area }}</p>
 </template>
