@@ -29,6 +29,26 @@ const addCocktailList = (): void => {
 const popCocktailList = (): void => {
   cocktailList.value.pop()
 }
+
+const cocktailMapInit = new Map<number, string>()
+cocktailMapInit.set(1111, "ホワイトレディ")
+cocktailMapInit.set(2222, "ブルーハワイ")
+cocktailMapInit.set(3333, "ニューヨーク")
+cocktailMapInit.set(4444, "マティーニ")
+const cocktailMap = ref(cocktailMapInit)
+
+const changeCocktailMap = () : void => {
+  cocktailMap.value.clear()
+  cocktailMap.value.set(5555, "バラライカ")
+  cocktailMap.value.set(6666, "XYZ")
+  cocktailMap.value.set(7777, "マンハッタン")
+}
+const addCocktailMap = (): void => {
+  cocktailMap.value.set(9999, "ブルームーン")
+}
+const removeCocktailMap = (): void => {
+  cocktailMap.value.delete(4444)
+}
 </script>
 
 <template>
@@ -67,5 +87,19 @@ const popCocktailList = (): void => {
     <button v-on:click="changeCocktailList">カクテル変更</button>
     <button v-on:click="addCocktailList">カクテル追加</button>
     <button v-on:click="popCocktailList">カクテル削除</button>
+  </section>
+  <hr>
+  <section>
+    <ul>
+      <li
+        v-for="[key, cocktailName] in cocktailMap"
+        v-bind:key="key"
+        >
+        {{ key }}のカクテル{{ cocktailName }}
+      </li>
+    </ul>
+    <button v-on:click="changeCocktailMap">カクテル変更</button>
+    <button v-on:click="addCocktailMap">カクテル追加</button>
+    <button v-on:click="removeCocktailMap">4444のカクテル削除</button>
   </section>
 </template>
