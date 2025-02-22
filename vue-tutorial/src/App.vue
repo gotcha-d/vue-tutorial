@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, watchEffect } from "vue"
+import { ref, computed, watch } from "vue"
 
 const cocktailListNo = ref(1)
 const priceMsg = ref("")
-watchEffect((): void => {
-  // リアクティブ変数に応じて実行される処理
+watch(cocktailListNo, (): void => {
   priceMsg.value = getCocktailInfo(cocktailListNo.value)
 })
 
