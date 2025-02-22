@@ -49,6 +49,31 @@ const addCocktailMap = (): void => {
 const removeCocktailMap = (): void => {
   cocktailMap.value.delete(4444)
 }
+
+const cocktailMapObjInit = new Map<number, Cocktail>()
+cocktailMapObjInit.set(1111, {id: 1111, name: "ホワイトレディ", price: 1200})
+cocktailMapObjInit.set(2222, {id: 2222, name: "ブルーハワイ", price: 1500})
+cocktailMapObjInit.set(3333, {id: 3333, name: "ニューヨーク", price: 1100})
+cocktailMapObjInit.set(4444, {id: 4444, name: "マティーニ", price: 1500})
+const cocktailMapObj = ref(cocktailMapObjInit)
+const whiteLadyModel = cocktailMapObj.value.get(1111) as Cocktail 
+
+const cocktailMapObj1500 = computed((): Map<number, Cocktail> => {
+  const newMap = new Map<number, Cocktail>()
+  // Mapのforeachは、第一引数に各要素、第二引数にキーが入っている
+  cocktailMapObj.value.forEach((item, key): void => {
+    if (item.price == 1500) {
+      newMap.set(item.id, item)
+    }
+  })
+  return newMap
+})
+const changePrice = (): void => {
+  // この書き方はエラー
+  // cocktailMapObj.value.get(1111)?.price = 1500
+  const whiteLady = cocktailMapObj.value.get(1111) as Cocktail
+  whiteLady.price = 1500 
+}
 </script>
 
 <template>
@@ -102,4 +127,32 @@ const removeCocktailMap = (): void => {
     <button v-on:click="addCocktailMap">カクテル追加</button>
     <button v-on:click="removeCocktailMap">4444のカクテル削除</button>
   </section>
+  <hr>
+  <section>
+    全てのカクテル
+    <ul>
+      <li
+        v-for="[key, cocktailItem] in cocktailMapObj"
+        v-bind:key="key"
+        >
+        {{ key }}: {{ cocktailItem.name }}({{ cocktailItem.price }}円)
+      </li>
+    </ul>
+  </section>
+  <section>
+    1500円のカクテル
+    <ul>
+      <li
+        v-for="[key, cocktailItem] in cocktailMapObj1500"
+        v-bind:key="key"
+        >
+        {{ key }}: {{ cocktailItem.name }}({{ cocktailItem.price }}円)
+      </li>
+    </ul>
+  </section>
+  <button v-on:click="changePrice">ホワイトレディの価格を変更する。</button>
+  <form v-on:submit.prevent="changePriceInput">
+    <input id="white-lady-text" type="text" v-bind:value="whiteLadyModel.price" required>
+    <button type="submit" >ホワイトレディの価格を変更する</button>
+  </form>
 </template>
