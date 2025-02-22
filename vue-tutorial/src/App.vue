@@ -1,51 +1,48 @@
-<script setup lang="ts">
-import {
-  ref,
-  computed,
-  onBeforeMount,
-  onMounted,
-  onBeforeUpdate,
-  onUpdated,
-  onRenderTracked,
-  onRenderTriggered,
-  type DebuggerEvent
-} from "vue"
+<script lang="ts">
+import { defineComponent, ref, computed } from "vue"
 
-const heightInit = Math.round(Math.random() * 10)
-const widthInit = Math.round(Math.random() * 10)
-const height = ref(heightInit)
-const width = ref(widthInit)
-const area = computed((): number => {
-  return height.value * width.value
+// Vueバージョン3.2より前の書き方。defineComponentによってコンポーネントの処理内容を記載する
+export default defineComponent({
+  name: "App", // コンポーネント名
+  setup() {
+    // compositionAPIでscriptブロックに書いていた内容
+    const cocktailDetailListInit = new Map<number, Cocktail>()
+    cocktailDetailListInit.set(1, {id: 1, name: "ホワイトレディ", price: 1200})
+    cocktailDetailListInit.set(2, {id: 2, name: "ブルーハワイ", price: 1500})
+    cocktailDetailListInit.set(3, {id: 3, name: "ニューヨーク", price: 1100})
+    cocktailDetailListInit.set(4, {id: 4, name: "マティーニ", price: 1500})
+
+    const cocktailNo = ref(1)
+    const priceMsg = computed((): string => {
+      const cocktail = cocktailDetailListInit.get(cocktailNo.value)
+      let msg = "該当のカクテルはありません"
+      if (cocktail !== undefined) {
+        msg = `該当のカクテルは${cocktail.name}で、価格は${cocktail.price}円`
+      }
+      return msg
+    })
+
+    setInterval(() => {
+      cocktailNo.value = Math.round(Math.random() * 3) + 1
+    }, 1000)
+  
+    // 戻り値としてリアクティブ変数をリターンして、templateブロックで利用できるようになる
+    return {
+      cocktailNo,
+      priceMsg
+    }
+
+  }
 })
-const change = () => {
-  height.value = Math.round(Math.random() * 10)
-  width.value = Math.round(Math.random() * 10)
+
+interface Cocktail {
+  id: number;
+  name: string;
+  price: number;
 }
-
-onBeforeMount((): void => {
-  console.log(`beforeMount called: ${height.value} * ${width.value}`)
-})
-onMounted((): void => {
-  console.log(`mounted called: ${height.value} * ${width.value}`)
-})
-onBeforeUpdate((): void => {
-  console.log(`beforeUpdate called: ${height.value} * ${width.value}`)
-})
-onUpdated((): void => {
-  console.log(`updated called: ${height.value} * ${width.value}`)
-})
-onRenderTracked((event: DebuggerEvent): void => {
-  console.log(`renderTracked called: ${height.value} * ${width.value}`)
-  console.log(event)
-})
-onRenderTriggered((event: DebuggerEvent): void => {
-  console.log(`renderTriggered called: ${height.value} * ${width.value}`)
-  console.log(event)
-})
 </script>
 
 <template>
-   <p>縦が{{ height }}、横が{{ width }}の長方形の面積は{{ area }}</p>
-   <button @click="change">値を変更</button>
+  <p>現在のカクテル番号： {{ cocktailNo }}</p>
+  <p>{{ priceMsg }}</p>
 </template>
