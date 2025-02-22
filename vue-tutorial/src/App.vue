@@ -5,7 +5,7 @@ const cocktailListNo = ref(1)
 const priceMsg = ref("")
 watch(cocktailListNo, (): void => {
   priceMsg.value = getCocktailInfo(cocktailListNo.value)
-})
+}, {immediate: true})
 
 interface Cocktail {
   id: number;
