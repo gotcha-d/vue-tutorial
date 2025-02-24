@@ -2,6 +2,11 @@
 import OneSection from './components/OneSection.vue';
 import WithModel from './components/WithModel.vue';
 import OneInfo from './components/OneInfo.vue';
+import { ref } from "vue"
+
+const propsTitle = ref("（これは親コンポーネントで定義したタイトル）発生した引数")
+const rand = Math.round(Math.random() * 10)
+const propsContent = ref(rand)
 </script>
 
 <template>
@@ -25,8 +30,8 @@ import OneInfo from './components/OneInfo.vue';
   <section>
     <h2>Props基礎 属性に直性に記述</h2>
     <OneInfo 
-      title="Propsの利用"
-      content="子コンポーネントにデータを渡すにはPropsを利用する" />
+      v-bind:title="propsTitle"
+      v-bind:content="propsContent" />
   </section>
 </template>
 

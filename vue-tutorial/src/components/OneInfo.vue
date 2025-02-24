@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Props {
   title: string;
-  content: string;
+  content: number;
 }
 defineProps<Props>();
 </script>
