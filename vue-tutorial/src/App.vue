@@ -8,6 +8,12 @@ import OneSection from './components/OneSection.vue';
     <h2>コンポーネント1個</h2>
     <OneSection />
   </section>
+  <section>
+    <h2>コンポーネントが複数</h2>
+    <OneSection />
+    <OneSection />
+    <OneSection />
+  </section>
 </template>
 
 <style>
