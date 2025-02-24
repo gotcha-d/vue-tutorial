@@ -15,7 +15,7 @@ const props = withDefaults(
 
 // Emitインターフェースの定義
 interface Emits {
-  (emit: "incrementPoint", id: number): void
+  (emit: "update:points", newPoint: number): void
 }
 const emit = defineEmits<Emits>()
 
@@ -23,8 +23,10 @@ const emit = defineEmits<Emits>()
 // 親コンポーネントから受け取ったデータを子で変更したいときは、独自の変数を用意して加工する。
 const localPoints = ref(props.points)
 
-const pointUp  = (): void => {
-  emit("incrementPoint", props.id)
+const onInput = (event: Event) => {
+  const element = event.target as HTMLInputElement
+  const inputPoints = Number(element.value)
+  emit("update:points", inputPoints)
 }
 </script>
 
@@ -37,11 +39,12 @@ const pointUp  = (): void => {
       <dt>メールアドレス</dt>
       <dd>{{ email }}</dd>
       <dt>保有ポイント</dt>
-      <dd>{{ points }}</dd>
+      <dd>
+        <input type="number" v-bind:value="points" v-on:input="onInput">
+      </dd>
       <dt>備考</dt>
       <dd>{{ note }}</dd>
     </dl>
-    <button @click="pointUp">ポイント加算</button>
   </section>
 </template>
 
