@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import OneMember from './components/OneMember.vue';
+import OneSection from './components/OneSection.vue';
 
 interface Member {
   id: number;
@@ -24,6 +25,12 @@ const totalPoints = computed(() => {
   });
   return totalPoints
 })
+
+const randInit = Math.round(Math.random() * 10)
+const rand = ref(randInit)
+const onCreateNewRand = () => {
+  rand.value = Math.round(Math.random() * 10)
+}
 </script>
 
 <template>
@@ -38,6 +45,14 @@ const totalPoints = computed(() => {
       :email="member.email"
       :points="member.points"
       :note="member.note"
+    />
+  </section>
+  <hr>
+  <section>
+    <p>親コンポーネントで乱数を表示: {{ rand }}</p>
+    <OneSection
+      :rand="rand"
+      v-on:createNewRand = "onCreateNewRand"
     />
   </section>
 </template>
