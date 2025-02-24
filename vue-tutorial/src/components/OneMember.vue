@@ -13,13 +13,18 @@ const props = withDefaults(
   {note: "--"}
 )
 
+// Emitインターフェースの定義
+interface Emits {
+  (emit: "incrementPoint", id: number): void
+}
+const emit = defineEmits<Emits>()
+
 // このコンポーネント内で利用するポイント数のテンプレート変数
 // 親コンポーネントから受け取ったデータを子で変更したいときは、独自の変数を用意して加工する。
 const localPoints = ref(props.points)
 
-// 対象会員の保有ポイントが変化する。ただし、親コンポーネントの合計ポイントは変化しない
-const pointUp = () => {
-  localPoints.value++
+const pointUp  = (): void => {
+  emit("incrementPoint", props.id)
 }
 </script>
 
@@ -32,7 +37,7 @@ const pointUp = () => {
       <dt>メールアドレス</dt>
       <dd>{{ email }}</dd>
       <dt>保有ポイント</dt>
-      <dd>{{ localPoints }}</dd>
+      <dd>{{ points }}</dd>
       <dt>備考</dt>
       <dd>{{ note }}</dd>
     </dl>

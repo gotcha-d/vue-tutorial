@@ -31,6 +31,13 @@ const rand = ref(randInit)
 const onCreateNewRand = () => {
   rand.value = Math.round(Math.random() * 10)
 }
+
+// Emitにより実行されるメソッド
+const onIncrementPoint = (memberId: number)  => {
+  const member = memberList.value.get(memberId) as Member
+  console.log("ttt")
+  member.points++
+}
 </script>
 
 <template>
@@ -45,6 +52,7 @@ const onCreateNewRand = () => {
       :email="member.email"
       :points="member.points"
       :note="member.note"
+      v-on:incrementPoint = "onIncrementPoint"
     />
   </section>
   <hr>
