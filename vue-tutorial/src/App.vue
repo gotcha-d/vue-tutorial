@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import OneSection from './components/OneSection.vue';
 import WithModel from './components/WithModel.vue';
+import OneInfo from './components/OneInfo.vue';
 </script>
 
 <template>
@@ -20,6 +21,12 @@ import WithModel from './components/WithModel.vue';
     <!-- scriptブロックは個々のコンポーネントで完結し、別の処理として動作する -->
     <WithModel />
     <WithModel />
+  </section>
+  <section>
+    <h2>Props基礎 属性に直性に記述</h2>
+    <OneInfo 
+      title="Propsの利用"
+      content="子コンポーネントにデータを渡すにはPropsを利用する" />
   </section>
 </template>
 
