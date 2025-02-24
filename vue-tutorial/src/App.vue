@@ -2,11 +2,23 @@
 import OneSection from './components/OneSection.vue';
 import WithModel from './components/WithModel.vue';
 import OneInfo from './components/OneInfo.vue';
+import OneWeatherInfo from './components/OneWeatherInfo.vue';
 import { ref } from "vue"
 
 const propsTitle = ref("（これは親コンポーネントで定義したタイトル）発生した引数")
 const rand = Math.round(Math.random() * 10)
 const propsContent = ref(rand)
+
+const weatherListInit = new Map<number, Weather>()
+weatherListInit.set(1, {id: 1, title: "今日の天気", content: "今日は一日中晴れでしょう"})
+weatherListInit.set(2, {id: 2, title: "明日の天気", content: "今日は一日中雨でしょう"})
+weatherListInit.set(3, {id: 3, title: "明後日の天気", content: "今日は一日中雪でしょう"})
+const weatherList = ref(weatherListInit)
+interface Weather {
+  id: number;
+  title: string;
+  content: string;
+}
 </script>
 
 <template>
@@ -32,6 +44,15 @@ const propsContent = ref(rand)
     <OneInfo 
       v-bind:title="propsTitle"
       v-bind:content="propsContent" />
+  </section>
+  <section>
+    <h2>ループでコンポーネントを生成</h2>
+    <OneWeatherInfo 
+      v-for="[key, weather] in weatherList"
+      v-bind:key="key"
+      v-bind:title="weather.title"
+      v-bind:content="weather.content"
+      />
   </section>
 </template>
 
