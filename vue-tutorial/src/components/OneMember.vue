@@ -1,49 +1,42 @@
 <script setup lang="ts">
-import { ref, computed } from "vue"
+import { computed, inject } from 'vue';
+import type { Member } from "@/interfaces"
 
 interface Props {
-  id: number;
-  name: string;
-  email: string;
-  points: number;
-  note?: string;
+  id: number
 }
-const props = withDefaults(
-  defineProps<Props>(),
-  {note: "--"}
-)
+const props = defineProps<Props>()
 
-// Emitインターフェースの定義
-interface Emits {
-  (emit: "update:points", newPoint: number): void
-}
-const emit = defineEmits<Emits>()
+// 会員情報リストのInject
+const memberList = inject("memberList") as Map<number, Member>
+const member = computed(() => {
+  return memberList.get(props.id) as Member
+})
 
-// このコンポーネント内で利用するポイント数のテンプレート変数
-// 親コンポーネントから受け取ったデータを子で変更したいときは、独自の変数を用意して加工する。
-const localPoints = ref(props.points)
+const localNote = computed((): string => {
+  let localNote = member.value.note
+  if (localNote == undefined) {
+    localNote = "--"
+  }
+  return localNote
+})
 
-const onInput = (event: Event) => {
-  const element = event.target as HTMLInputElement
-  const inputPoints = Number(element.value)
-  emit("update:points", inputPoints)
-}
 </script>
 
 <template>
   <section class="box">
-    <h4>{{ name }}さんの情報</h4>
+    <h4>{{ member.name }}さんの情報</h4>
     <dl>
       <dt>ID</dt>
-      <dd>{{ id }}</dd>
-      <dt>メールアドレス</dt>
-      <dd>{{ email }}</dd>
+      <dd>{{ member.id }}</dd>
+      <dt>email</dt>
+      <dd>{{ member.email }}</dd>
       <dt>保有ポイント</dt>
       <dd>
-        <input type="number" v-bind:value="points" v-on:input="onInput">
+        <input type="number" v-model.number="member.points">
       </dd>
       <dt>備考</dt>
-      <dd>{{ note }}</dd>
+      <dd>{{ localNote }}</dd>
     </dl>
   </section>
 </template>

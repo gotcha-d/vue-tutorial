@@ -1,61 +1,21 @@
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import OneMember from './components/OneMember.vue';
-import OneSection from './components/OneSection.vue';
+import { reactive, provide } from 'vue';
+import BaseSection from './components/BaseSection.vue';
+import type { Member } from './interfaces';
 
-interface Member {
-  id: number;
-  name: string;
-  email: string;
-  points: number;
-  note?: string;
-}
-
-const memberListInit = new Map<number, Member>()
-memberListInit.set(1, {id: 1, name: "田中太郎", email: "taro@example.jp", points:35, note: "初回特典あり"})
-memberListInit.set(2, {id: 2, name: "鈴木次郎", email: "jiro@example.jp", points:53})
-const memberList = ref(memberListInit)
-
-/* 会員リスト内のポイントの合計 */
-const totalPoints = computed(() => {
-  let totalPoints = 0
-  memberList.value.forEach(member => {
-    totalPoints += member.points
-  });
-  return totalPoints
-})
-
-const randInit = Math.round(Math.random() * 10)
-const rand = ref(randInit)
-const onCreateNewRand = () => {
-  rand.value = Math.round(Math.random() * 10)
-}
+// 会員情報リストの用意
+const memberList = new Map<number, Member>()
+memberList.set(1, {id:1, name: "田中太郎", email: "tanaka@example.jp", points: 35, note: "初回入会特典あり"})
+memberList.set(2, {id:2, name: "鈴木二郎", email: "suzuki@example.jp", points: 53})
+// 会員情報をprovide
+provide("memberList", reactive(memberList))
 </script>
 
 <template>
-  <section>
-    <h1>会員リスト</h1>
-    <p>全会員の保有ポイントの合計: {{ totalPoints }}</p>
-    <OneMember 
-      v-for="[key, member] in memberList"
-      :key="key"
-      :id="member.id"
-      :name="member.name"
-      :email="member.email"
-      v-model:points="member.points"
-      :note="member.note"
-    />
-  </section>
-  <hr>
-  <section>
-    <p>親コンポーネントで乱数を表示: {{ rand }}</p>
-    <OneSection
-      :rand="rand"
-      v-on:createNewRand = "onCreateNewRand"
-    />
-  </section>
+  <BaseSection />
 </template>
+
 <style>
 section {
   border: blue 1px solid;
