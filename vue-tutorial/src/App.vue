@@ -9,7 +9,7 @@ const jiro = ref("鈴木次郎")
 <template>
   <h2>SLotの利用</h2>
   <OneSection :name="taro">
-    <p>連絡がつきません</p>
+    <p>{{ taro }}さんは連絡がつきません</p>
   </OneSection>
   <OneSection :name="jiro"/>
 </template>
