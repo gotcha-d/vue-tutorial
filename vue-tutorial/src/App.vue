@@ -1,36 +1,50 @@
 <script setup lang="ts">
-import { ref } from "vue"
-import Input from "./components/Input.vue";
-import Radio from "./components/Radio.vue";
-import Select from "./components/Select.vue";
+import { reactive, provide } from 'vue';
+import { RouterView } from 'vue-router';
+import type { Member } from './interfaces';
 
-// 現在表示させるコンポーネント
-const currentComp = ref(Input)
-// 現在表示させるコンポーネント名
-const currentCompName = ref("Input")
-
-const compList = [Input, Radio, Select]
-const compNameList = ["Input", "Radio", "Select"]
-let currentCompIndex = 0
-
-const switchComp = (): void => {
-  currentCompIndex++
-
-  // 規定値以上の場合はリセットさせる
-  if (currentCompIndex > 2) {
-    currentCompIndex = 0
-  }
-
-  // コンポーネント切り替え
-  currentComp.value = compList[currentCompIndex]
-  currentCompName.value = compNameList[currentCompIndex]
-}
+const memberListInit = new Map<number, Member>()
+memberListInit.set(33456, {id: 33456, name: "田中太郎", email: "bow@example.jp", points: 35, note: "初回特典あり"})
+memberListInit.set(47783, {id: 47783, name: "鈴木次郎", email: "mue@example.jp", points: 53})
+provide("memberList", memberListInit)
 </script>
 
 <template>
-  <p>コンポーネント名: {{ currentCompName }}</p>
-  <KeepAlive>
-    <component v-bind:is="currentComp" />
-  </KeepAlive>
-  <button v-on:click="switchComp">切り替え</button>
+  <header>
+    <h1>Vue Routerサンプル</h1>
+  </header>
+  <main>
+    <RouterView />
+  </main>
 </template>
+
+<style>
+main {
+  border: blue 1px solid;
+  padding: 10px;
+}
+
+#breadcrumbs ul li {
+  display: inline;
+  list-style: none;
+}
+
+#breadcrumbs {
+  margin-left: 0px;
+}
+
+#breadcrumbs ul {
+  padding-left: 0px;
+}
+#breadcrumbs ul .current {
+  color: red;
+}
+
+#breadcrumbs ul li::before {
+  content: " > ";
+}
+
+#breadcrumbs ul li:first-child::before {
+  content: none;
+}
+</style>
