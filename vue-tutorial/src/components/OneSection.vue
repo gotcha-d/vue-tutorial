@@ -1,29 +1,21 @@
 <script setup lang="ts">
 interface Props {
-  rand: number
+  name: string;
 }
 defineProps<Props>()
-
-interface Emits {
-  (event: "createNewRand"): void
-}
-const emit = defineEmits<Emits>()
-
-const onNewRandomButtonClick = () => {
-  emit("createNewRand")
-}
 </script>
 
 <template>
   <section class="box">
-    <p>子コンポーネントで乱数を表示: {{ rand }}</p>
-    <button @click="onNewRandomButtonClick">あたらしい乱数を生成</button>
+    <h1>{{ name }}さんの状況</h1>
+    <slot>
+      <p>問題ありません</p>
+    </slot>
   </section>
 </template>
-
 <style>
 .box {
-  border: green 1px dashed;
+  border: green 1px solid;
   margin: 10px;
 }
 </style>
