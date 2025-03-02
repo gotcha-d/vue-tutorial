@@ -20,24 +20,6 @@ const onAdd = (): void => {
 </script>
 
 <template>
-  <h1>会員管理</h1>
-  <nav id="breadcrumbs">
-    <ul>
-      <li>
-        <RouterLink v-bind:to="{name: 'AppTop'}">
-          TOP
-        </RouterLink>
-      </li>
-      <li>
-        <RouterLink v-bind:to="{name: 'memberList'}">
-          会員リスト
-        </RouterLink>
-      </li>
-      <li>
-        会員情報追加
-      </li>
-    </ul>
-  </nav>
   <section>
     <h2>会員情報追加</h2>
     <p>情報を入力して登録ボタンをクリックしてください</p>
