@@ -7,6 +7,13 @@ const routeSettings: RouteRecordRaw[] = [
     path: "/",
     name: "AppTop",
     component: AppTop
+  },
+  {
+    path: "/member/memberList",
+    name: "memberList",
+    component: () => {
+      return import("@/views/member/MemberList.vue")
+    }
   }
 ]
 

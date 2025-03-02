@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router';
 </script>
 
 <template>
@@ -9,6 +10,10 @@
     </ul>
   </nav>
   <section>
-    <p>会員管理はこちら</p>
+    <p>
+      <RouterLink :to="{name: 'memberList'}">
+        会員管理はこちら
+      </RouterLink>
+    </p>
   </section>
 </template>
