@@ -29,8 +29,8 @@ const switchComp = (): void => {
 
 <template>
   <p>コンポーネント名: {{ currentCompName }}</p>
-  <!-- <KeepAlive> -->
+  <KeepAlive>
     <component v-bind:is="currentComp" />
-  <!-- </KeepAlive> -->
+  </KeepAlive>
   <button v-on:click="switchComp">切り替え</button>
 </template>
