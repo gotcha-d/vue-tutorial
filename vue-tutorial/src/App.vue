@@ -14,14 +14,21 @@ const jiro = ref("鈴木次郎")
 <template>
   <h2>SLotの利用</h2>
   <OneSection :name="taro">
-    <ul>
-      <li
-        v-for="problems of taroProblems"
-        v-bind:key="problems"
-      >
-        {{ problems }}
-      </li>
-    </ul>
+    <template v-slot:default>
+      <p>問題発生したよ</p>
+    </template>
+    <template v-slot:etail>
+      <ul>
+        <li v-for="problem in taroProblems">
+          {{ problem }}
+        </li>
+      </ul>
+    </template>
   </OneSection>
-  <OneSection :name="jiro"/>
+  <OneSection :name="jiro">
+    <!-- すべてのSlotに対して子コンポーネントに渡すHTMLを指定する必要はない -->
+    <template #default>
+      <p>微妙に問題発生</p>
+    </template>
+  </OneSection>
 </template>
