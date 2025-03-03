@@ -14,11 +14,21 @@ export const useMemberStore = defineStore(
       }
     },
     getters: {
+      getById: (state) => {
+        // 引数付きのゲッタ
+        return (id: number) => {
+          const member = state.memberList.get(id) as Member
+          return member
+        }
+      }
     },
     actions: {
       initList(): void {
         this.memberList.set(33456, {id: 33456, name: "田中太郎", email: "tanaka@example.com", points: 35, note: "初回入会特典あり"})
         this.memberList.set(47783, {id: 47783, name: "鈴木次郎", email: "mue@exmaple.jp", points:53})
+      },
+      addMember(member: Member): void {
+        this.memberList.set(member.id , member)
       }
     }
   }
