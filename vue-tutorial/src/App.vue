@@ -1,21 +1,16 @@
 <script setup lang="ts">
-import { computed } from "vue"
-import { useCounterStore } from "./store/counter";
+import { RouterView } from 'vue-router';
+import { useMemberStore } from './store/member';
 
-const counterStore = useCounterStore()
-const count = computed(() => {
-  return counterStore.counter
-})
-const doubleCount = computed(() => {
-  return counterStore.doubleCount
-})
-const onIncrementClick = (): void => {
-  counterStore.incrementCount()
-}
+const memberStore = useMemberStore()
+memberStore.initList()
 </script>
 
 <template>
-  <p>現在のポイント: {{ count }}</p>
-  <p>現在のポイントさらに倍： {{ doubleCount }}</p>
-  <button type="button" @click="onIncrementClick">加算</button>
+  <header>
+    <h1>Piniaサンプル</h1>
+  </header>
+  <main>
+    <RouterView />
+  </main>
 </template>
