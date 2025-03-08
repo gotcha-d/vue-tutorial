@@ -2,12 +2,21 @@ import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
 import AppTop from '@/views/AppTop.vue';
 import MemberDetail from '@/views/member/MemberDetail.vue';
+import CityList from '@/views/CityList.vue';
 
 const routeSettings: RouteRecordRaw[] = [
   {
     path: "/",
-    name: "AppTop",
-    component: AppTop
+    name: "CityList",
+    component: CityList
+  },
+  {
+    path: "/weatherInfo/:id",
+    name: "WeatherInfo",
+    component: () => {
+      return import("@/views/WeatherInfo.vue")
+    },
+    props: true
   },
   {
     path: "/member/memberList",
@@ -37,7 +46,7 @@ const routeSettings: RouteRecordRaw[] = [
         }
       }
     ]
-  },
+  }
   // {
   //   path: "/member/detail/:id",
   //   name: "memberDetail",

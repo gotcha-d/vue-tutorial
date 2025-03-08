@@ -5,7 +5,7 @@ import { RouterView } from 'vue-router';
 
 <template>
   <header>
-    <h1>Piniaサンプル</h1>
+    <h1>webアクセスサンプル</h1>
   </header>
   <main>
     <RouterView />
