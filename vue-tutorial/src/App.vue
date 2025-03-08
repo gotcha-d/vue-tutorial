@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
+import { ref, computed } from 'vue';
+import { divideTwoNums } from './functions';
 
+const num1 = ref(6)
+const num2 = ref(3)
+const answer = computed((): number => {
+  return divideTwoNums(num1.value, num2.value)
+})
 </script>
 
 <template>
-  <header>
-    <h1>webアクセスサンプル</h1>
-  </header>
-  <main>
-    <RouterView />
-  </main>
+  <p>{{ num1 }}÷{{ num2 }}={{ answer }}</p>
 </template>
