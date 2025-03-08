@@ -71,10 +71,30 @@ export const useMemberStore = defineStore(
         )
         return promise
       },
-      insertMember(member: Member): void {
-        this.memberList.set(member.id, member)
-        const memberListJsonStr = JSON.stringify([...this.memberList])
-        sessionStorage.setItem("memberList", memberListJsonStr)
+      async insertMember(member: Member): Promise<boolean> {
+        // memberObject生成
+        // コンポーネントから渡されたmemberはリアクティブ変数のため純粋なMemberオブジェクトではない。そのままputに渡すとエラーになる
+        const memberAdd: Member = {
+          ...member
+        }
+        const database = await getDatabase()
+        const promise = new Promise<boolean> (
+          (resolve, reject) => {
+            // 非同期で実行したい処理
+            const transaction = database.transaction("members", "readwrite")
+            const objectStore = transaction.objectStore("members")
+            // データ登録
+            objectStore.put(memberAdd)
+            transaction.oncomplete= () => {
+              resolve(true)
+            }
+            transaction.onerror = (error) => {
+              console.log("ERROR: データ登録に失敗")
+              reject(new Error("ERROR データ登録に失敗"))
+            }
+          }
+        )
+        return promise
       }
     }
   }
