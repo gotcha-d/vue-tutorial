@@ -14,8 +14,18 @@ const member: Member = reactive({
   note: ""
 })
 const onAdd = (): void => {
-  memberStore.insertMember(member)
-  router.push({name: "memberList"})
+  const promise = memberStore.insertMember(member)
+  promise.then(
+  (result: boolean) => {
+    if(result) {
+      router.push({name: "MemberList"})
+    }
+  }
+  ).catch (
+    (error: Error) => {
+      console.log(error)
+    }
+  )
 }
 </script>
 
