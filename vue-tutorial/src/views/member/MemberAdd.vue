@@ -14,8 +14,7 @@ const member: Member = reactive({
   note: ""
 })
 const onAdd = (): void => {
-  console.log(member)
-  memberStore.addMember(member)
+  memberStore.insertMember(member)
   router.push({name: "memberList"})
 }
 </script>

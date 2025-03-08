@@ -21,6 +21,11 @@ export const useMemberStore = defineStore(
           const member = state.memberList.get(id) as Member
           return member
         }
+      },
+      isMemberListEmpty: (state) => {
+        return (): boolean => {
+          return state.memberList.size == 0
+        }
       }
     },
     actions: {
@@ -32,6 +37,11 @@ export const useMemberStore = defineStore(
           memberList = new Map<number, Member>(memberListJson)
         }
         this.memberList = memberList
+      },
+      insertMember(member: Member): void {
+        this.memberList.set(member.id, member)
+        const memberListJsonStr = JSON.stringify([...this.memberList])
+        sessionStorage.setItem("memberList", memberListJsonStr)
       }
     }
   }

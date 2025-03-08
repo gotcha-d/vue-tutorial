@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 import { RouterLink, RouterView } from 'vue-router';
 import type { Member } from '@/interfaces';
 import { useMemberStore } from '@/store/member';
 
 const memberStore = useMemberStore()
+memberStore.prepareMemberList()
+
 const memberList = computed(
   (): Map<number, Member> => {
     return memberStore.memberList
   }
 )
+const isEmptyList = computed(() => {
+  return memberStore.isMemberListEmpty
+})
 </script>
 
 <template>
@@ -31,6 +36,7 @@ const memberList = computed(
     </p>
     <section>
       <ul>
+        <li v-if="isEmptyList">会員情報は存在しません</li>
         <li
           v-for="[id, member] in memberList"
           v-bind:key="id"
