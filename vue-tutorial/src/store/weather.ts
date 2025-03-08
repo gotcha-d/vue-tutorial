@@ -7,6 +7,9 @@ export interface City {
 
 interface State {
   cityList: Map<string, City>
+  selectedCity: City
+  isLoading: boolean
+  weatherDescription: string
 }
 
 export const useWeatherStore = defineStore(
@@ -14,7 +17,10 @@ export const useWeatherStore = defineStore(
   {
     state : (): State => {
       return {
-        cityList: new Map<string, City>()
+        cityList: new Map<string, City>(),
+        selectedCity: {name: "", q: ""},
+        isLoading: true,
+        weatherDescription: ""
       }
     },
     getters: {
@@ -25,6 +31,10 @@ export const useWeatherStore = defineStore(
         this.cityList.set("Osaka", {name: "大阪", q: "Osaka"})
         this.cityList.set("Kobe", {name: "神戸", q: "Kobe"})
         this.cityList.set("Himeji", {name: "姫路", q: "Himeji"})
+      },
+      async reactiveWeatherInfo(id: string) {
+        this.selectedCity = this.cityList.get(id) as City
+        // webアクセスコードを書く
       }
     }
   }
